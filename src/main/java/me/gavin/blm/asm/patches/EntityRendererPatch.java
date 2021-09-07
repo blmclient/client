@@ -21,7 +21,7 @@ public final class EntityRendererPatch extends ClassPatch {
             obfName = "g",
             obfDesc = "(F)V"
     )
-    private void updateLightmapPatch(MethodNode methodNode, boolean deobfuscated) {
+    public void updateLightmapPatch(MethodNode methodNode, boolean deobfuscated) {
         // make instruction list
         final InsnList insnList = new InsnList();
         // load target var onto stack
@@ -31,7 +31,7 @@ public final class EntityRendererPatch extends ClassPatch {
         // store result of hook method into f15
         insnList.add(new VarInsnNode(FSTORE, 15));
         // find target instruction
-        final VarInsnNode targetNode = ASMUtil.findVarInsn(methodNode, FSTORE, 15, 0);
+        final VarInsnNode targetNode = ASMUtil.findVarInsn(methodNode, FSTORE, 15, 2);
         // insert insn list after
         methodNode.instructions.insertBefore(targetNode.getNext(), insnList);
     }

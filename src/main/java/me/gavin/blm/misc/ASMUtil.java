@@ -10,7 +10,7 @@ import org.objectweb.asm.tree.VarInsnNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ASMUtil {
+public final class ASMUtil {
 
     public static ClassNode toClassNode(byte[] bytes) {
         final ClassReader reader = new ClassReader(bytes);
@@ -30,10 +30,16 @@ public class ASMUtil {
         for (AbstractInsnNode insn : methodNode.instructions.toArray()) {
             if (insn instanceof VarInsnNode) {
                 final VarInsnNode varinsn = (VarInsnNode) insn;
-                if (insn.getOpcode() == opcode && varinsn.var == index)
+                if (varinsn.getOpcode() == opcode && varinsn.var == index) {
                     list.add(varinsn);
+                    System.out.println(insnToString(varinsn, methodNode));
+                }
             }
         }
         return list.get(ordinal);
+    }
+
+    public static String insnToString(AbstractInsnNode insn, MethodNode methodNode) {
+        return insn.getOpcode() + " " + insn.getClass().getName() + " " + methodNode.instructions.indexOf(insn);
     }
 }

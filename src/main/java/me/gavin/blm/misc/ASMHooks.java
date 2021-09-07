@@ -7,7 +7,7 @@ import net.minecraft.network.Packet;
 import net.minecraftforge.common.MinecraftForge;
 import org.objectweb.asm.Type;
 
-public class ASMHooks {
+public final class ASMHooks {
 
     public static final String internalName = Type.getInternalName(ASMHooks.class);
 

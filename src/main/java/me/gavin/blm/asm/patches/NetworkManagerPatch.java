@@ -17,7 +17,6 @@ public final class NetworkManagerPatch extends ClassPatch {
             obfDesc = "(Lfj;)V"
     )
     public void sendPacketPatch(MethodNode methodNode, boolean deobfuscated) {
-        System.out.println("SNED PACKEIT PATCHHHHHHHHHHHHHHHH POOPY");
         // instruction list
         final InsnList insnList = new InsnList();
         // load packet onto stack

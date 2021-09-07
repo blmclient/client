@@ -9,7 +9,7 @@ import org.objectweb.asm.tree.MethodNode;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class ASMClassTransformer implements IClassTransformer {
+public final class ASMClassTransformer implements IClassTransformer {
 
     public static PatchManager patchManager = new PatchManager();
 
@@ -42,7 +42,7 @@ public class ASMClassTransformer implements IClassTransformer {
                                 patchName = methodPatch.name();
                                 patchDesc = methodPatch.desc();
                             }
-                            System.out.println(patchName + " " + methodNode.name);
+
                             if (methodNode.name.equals(patchName) && methodNode.desc.equals(patchDesc)) {
                                 method.invoke(patch, methodNode, PatchManager.deobfuscated);
                                 System.out.println("Transformed: " + classNode.name + "." + methodNode.name + methodNode.desc);

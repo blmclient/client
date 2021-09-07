@@ -5,7 +5,7 @@ import me.gavin.blm.asm.patches.NetworkManagerPatch;
 
 import java.util.ArrayList;
 
-public class PatchManager {
+public final class PatchManager {
 
     public static boolean deobfuscated;
     private final ArrayList<ClassPatch> patches = new ArrayList<>();
