@@ -2,6 +2,8 @@ package me.gavin.blm.asm;
 
 import me.gavin.blm.misc.ASMUtil;
 import net.minecraft.launchwrapper.IClassTransformer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.Sys;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -13,8 +15,11 @@ public final class ASMClassTransformer implements IClassTransformer {
 
     public static PatchManager patchManager = new PatchManager();
 
+    private final Logger logger;
+
     public ASMClassTransformer() {
-        System.out.println("electric boogaloo");
+        logger = LogManager.getLogger("BLM Client ASM");
+        logger.info("ASM service initialized");
     }
 
     @Override
@@ -24,7 +29,7 @@ public final class ASMClassTransformer implements IClassTransformer {
         if (patch == null)
             return basicClass;
 
-        System.out.println("Patching " + name);
+        logger.info("Patching " + name + (PatchManager.deobfuscated ? "" : " (" + transformedName + ")"));
 
         final ClassNode classNode = ASMUtil.toClassNode(basicClass);
 
@@ -45,7 +50,7 @@ public final class ASMClassTransformer implements IClassTransformer {
 
                             if (methodNode.name.equals(patchName) && methodNode.desc.equals(patchDesc)) {
                                 method.invoke(patch, methodNode, PatchManager.deobfuscated);
-                                System.out.println("Transformed: " + classNode.name + "." + methodNode.name + methodNode.desc);
+                                logger.info("Transformed: " + classNode.name + "." + methodNode.name + methodNode.desc);
                             }
                         } catch (IllegalAccessException | InvocationTargetException e) {
                             e.printStackTrace();

@@ -4,7 +4,6 @@ import me.gavin.blm.asm.ASMClassTransformer;
 import me.gavin.blm.asm.PatchManager;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
-import java.nio.file.PathMatcher;
 import java.util.Map;
 
 @IFMLLoadingPlugin.Name("BLM ASM")

@@ -4,8 +4,11 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import me.gavin.blm.misc.MC;
+import me.gavin.blm.setting.Setting;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 
@@ -16,6 +19,7 @@ public abstract class Module implements MC {
 	private final String name;
 	private final String description;
 	private final Category category;
+	private final ArrayList<Setting> settings = new ArrayList<>();
 	
 	public Module() {
 		if (this.getClass().isAnnotationPresent(Info.class)) {
@@ -24,6 +28,18 @@ public abstract class Module implements MC {
 			this.description = info.description();
 			this.category = info.category();
 			this.bind = info.keybind();
+			for (Field field : this.getClass().getDeclaredFields()) {
+				if (!field.isAccessible())
+					field.setAccessible(true);
+
+				if (Setting.class.isAssignableFrom(field.getType())) {
+					try {
+						settings.add((Setting) field.get(this));
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+				}
+			}
 			init();
 		} else {
 			throw new IllegalStateException("Module is missing @Info annotation");
@@ -111,5 +127,9 @@ public abstract class Module implements MC {
 		int keybind() default Keyboard.KEY_NONE;
 		
 		boolean enabled() default false;
+	}
+
+	public ArrayList<Setting> getSettings() {
+		return settings;
 	}
 }
