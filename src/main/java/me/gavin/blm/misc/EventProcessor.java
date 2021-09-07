@@ -19,7 +19,7 @@ public final class EventProcessor {
             if (MinecraftForge.EVENT_BUS.post(chatEvent))
                 event.setCanceled(true);
 
-            //((ICPacketChatMessage)packet).setMessageAccessor(chatEvent.getMessage());
+            packet.message = chatEvent.getMessage();
         }
     }
 }

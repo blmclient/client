@@ -10,8 +10,8 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "1.0"
-group= "com.yourname.modid"
-archivesBaseName = "modid"
+group = "me.gavin.blm"
+archivesBaseName = "blm"
 
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {

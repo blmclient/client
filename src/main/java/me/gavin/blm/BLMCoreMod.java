@@ -1,8 +1,10 @@
 package me.gavin.blm;
 
 import me.gavin.blm.asm.ASMClassTransformer;
+import me.gavin.blm.asm.PatchManager;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
+import java.nio.file.PathMatcher;
 import java.util.Map;
 
 @IFMLLoadingPlugin.Name("BLM ASM")
@@ -27,7 +29,9 @@ public final class BLMCoreMod implements IFMLLoadingPlugin {
 
     @Override
     public void injectData(Map<String, Object> data) {
-
+        final boolean isObfuscated = (boolean) data.getOrDefault("runtimeDeobfuscationEnabled", true);
+        PatchManager.deobfuscated = !isObfuscated;
+        System.out.println(PatchManager.deobfuscated);
     }
 
     @Override

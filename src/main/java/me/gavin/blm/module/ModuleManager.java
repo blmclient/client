@@ -22,7 +22,6 @@ public final class ModuleManager {
                     final Class<?> clazz = info.load();
                     if (!Modifier.isAbstract(clazz.getModifiers()) && Module.class.isAssignableFrom(clazz)) {
                         loadModule((Class<? extends Module>) clazz);
-                        System.out.println("Loaded class " + clazz.getName());
                     }
                 }
             }
