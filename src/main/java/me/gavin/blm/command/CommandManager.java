@@ -1,11 +1,8 @@
 package me.gavin.blm.command;
 
-import me.gavin.blm.command.commands.HelpCmd;
-import me.gavin.blm.command.commands.PrefixCmd;
-import me.gavin.blm.command.commands.ToggleCmd;
+import me.gavin.blm.command.commands.*;
 import me.gavin.blm.events.PlayerChatEvent;
 import me.gavin.blm.misc.MC;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -26,6 +23,7 @@ public final class CommandManager implements MC {
         commands.add(new HelpCmd());
         commands.add(new PrefixCmd());
         commands.add(new ToggleCmd());
+        commands.add(new ModulesCmd());
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)

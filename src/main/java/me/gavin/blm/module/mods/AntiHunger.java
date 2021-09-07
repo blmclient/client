@@ -30,11 +30,7 @@ public final class AntiHunger extends Module {
         if (onGround.getValue()) {
             if (event.getPacket() instanceof CPacketPlayer && !mc.thePlayer.isElytraFlying() && !mc.thePlayer.isRiding()) {
                 final CPacketPlayer cPacketPlayer = (CPacketPlayer) event.getPacket();
-                if (mc.thePlayer.fallDistance <= 0 && !mc.playerController.getIsHittingBlock()) {
-                    cPacketPlayer.onGround = false;
-                } else {
-                    cPacketPlayer.onGround = true;
-                }
+                cPacketPlayer.onGround = !(mc.thePlayer.fallDistance <= 0) || mc.playerController.getIsHittingBlock();
             }
         } else if (spoofSprint.getValue()) {
             if (event.getPacket() instanceof CPacketEntityAction) {
