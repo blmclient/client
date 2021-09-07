@@ -1,5 +1,6 @@
 package me.gavin.blm.asm;
 
+import me.gavin.blm.asm.patches.EntityPlayerSPPatch;
 import me.gavin.blm.asm.patches.EntityRendererPatch;
 import me.gavin.blm.asm.patches.NetworkManagerPatch;
 
@@ -14,6 +15,7 @@ public final class PatchManager {
         // add patches here
         patches.add(new NetworkManagerPatch());
         patches.add(new EntityRendererPatch());
+        patches.add(new EntityPlayerSPPatch());
     }
 
     public ClassPatch getPatch(String className) {

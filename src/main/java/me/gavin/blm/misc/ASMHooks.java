@@ -26,4 +26,8 @@ public final class ASMHooks {
             return original;
         }
     }
+
+    public static void onUpdateHook() {
+
+    }
 }
