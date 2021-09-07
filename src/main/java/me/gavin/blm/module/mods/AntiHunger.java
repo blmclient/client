@@ -19,7 +19,10 @@ public final class AntiHunger extends Module {
 
     @Override
     protected void init() {
-        System.out.println(getSettings());
+        addSettings(
+                onGround,
+                spoofSprint
+        );
     }
 
     @SubscribeEvent

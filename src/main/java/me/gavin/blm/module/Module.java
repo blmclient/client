@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import me.gavin.blm.misc.MC;
 import me.gavin.blm.setting.Setting;
@@ -28,18 +29,6 @@ public abstract class Module implements MC {
 			this.description = info.description();
 			this.category = info.category();
 			this.bind = info.keybind();
-			for (Field field : this.getClass().getDeclaredFields()) {
-				if (!field.isAccessible())
-					field.setAccessible(true);
-
-				if (Setting.class.isAssignableFrom(field.getType())) {
-					try {
-						settings.add((Setting) field.get(this));
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					}
-				}
-			}
 			init();
 		} else {
 			throw new IllegalStateException("Module is missing @Info annotation");
@@ -131,5 +120,9 @@ public abstract class Module implements MC {
 
 	public ArrayList<Setting> getSettings() {
 		return settings;
+	}
+
+	protected void addSettings(Setting... settingsArr) {
+		settings.addAll(Arrays.asList(settingsArr));
 	}
 }
