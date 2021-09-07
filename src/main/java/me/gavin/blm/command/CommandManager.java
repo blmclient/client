@@ -1,5 +1,7 @@
 package me.gavin.blm.command;
 
+import me.gavin.blm.command.commands.HelpCmd;
+import me.gavin.blm.command.commands.PrefixCmd;
 import me.gavin.blm.events.PlayerChatEvent;
 import me.gavin.blm.misc.MC;
 import net.minecraft.util.text.TextComponentString;
@@ -20,14 +22,14 @@ public final class CommandManager implements MC {
         MinecraftForge.EVENT_BUS.register(this);
 
         // add commands
-
+        commands.add(new HelpCmd());
+        commands.add(new PrefixCmd());
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerChat(PlayerChatEvent event) {
         if (event.getOriginalMessage().startsWith(prefix)) {
             event.setCanceled(true);
-            mc.ingameGUI.getChatGUI().addToSentMessages(event.getOriginalMessage());
             final String name = processName(event.getOriginalMessage());
             final String[] args = processArgs(event.getOriginalMessage());
             for (Command command : commands) {
@@ -49,5 +51,9 @@ public final class CommandManager implements MC {
         } else {
             return Arrays.copyOfRange(split, 1, split.length);
         }
+    }
+
+    public ArrayList<Command> getCommands() {
+        return commands;
     }
 }
