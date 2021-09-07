@@ -1,0 +1,10 @@
+{
+  "minVersion": "0.7",
+  "compatibilityLevel": "JAVA_8",
+  "package": "me.gavin.blm.mixins",
+  "refmap": "refmap.blm.json",
+  "mixins": [
+    "MixinNetworkManager",
+    "access.ICPacketChatMessage"
+  ]
+}
