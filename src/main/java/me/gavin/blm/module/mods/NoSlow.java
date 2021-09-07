@@ -1,6 +1,6 @@
 package me.gavin.blm.module.mods;
 
-import me.gavin.blm.events.PlayerMovementInputUpdateEvent;
+import me.gavin.blm.events.MovementInputUpdateEvent;
 import me.gavin.blm.module.Module;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -9,11 +9,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
         description = "Prevent various things from slowing you down",
         category = Module.Category.Movement
 )
-public class NoSlow extends Module {
+public final class NoSlow extends Module {
 
     @SubscribeEvent
-    public void onInputUpdate(PlayerMovementInputUpdateEvent event) {
-        if (mc.thePlayer.isHandActive()) {
+    public void onInputUpdate(MovementInputUpdateEvent event) {
+        if (mc.thePlayer.isHandActive() && !mc.thePlayer.isRiding()) {
             event.getMovementInput().moveForward *= 5.0;
             event.getMovementInput().moveStrafe *= 5.0;
         }

@@ -1,9 +1,12 @@
 package me.gavin.blm.misc;
 
 import me.gavin.blm.BLMClient;
+import me.gavin.blm.events.MovementInputUpdateEvent;
 import me.gavin.blm.events.PacketEvent;
+import me.gavin.blm.events.PlayerUpdateEvent;
 import me.gavin.blm.module.mods.Fullbright;
 import net.minecraft.network.Packet;
+import net.minecraft.util.MovementInput;
 import net.minecraftforge.common.MinecraftForge;
 import org.objectweb.asm.Type;
 
@@ -27,7 +30,11 @@ public final class ASMHooks {
         }
     }
 
-    public static void onUpdateHook() {
+    public static void onLivingUpdateHook() {
+        MinecraftForge.EVENT_BUS.post(new PlayerUpdateEvent());
+    }
 
+    public static void onLivingUpdateHook(MovementInput movementInput) {
+        MinecraftForge.EVENT_BUS.post(new MovementInputUpdateEvent(movementInput));
     }
 }
