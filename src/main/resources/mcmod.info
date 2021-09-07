@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "blm",
+  "name": "BLM Client",
+  "description": "1.10.2 utility mod",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Gav06"],
+  "credits": "spongepowered for making mixin, and scott for making 2b2t ireland",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
