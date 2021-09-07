@@ -2,20 +2,12 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
-        maven {
-            name = 'SpongePowered'
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
-        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
-        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 version = "1.0"
 group= "com.yourname.modid"
@@ -34,19 +26,9 @@ minecraft {
 }
 
 repositories {
-    maven {
-        name = 'spongepowered-repo'
-        url = 'https://repo.spongepowered.org/repository/maven-public/'
-    }
 }
 
 dependencies {
-    compile("org.spongepowered:mixin:0.7.4-SNAPSHOT") {
-        exclude module: 'launchwrapper'
-        exclude module: 'guava'
-        exclude module: 'gson'
-        exclude module: 'commons-io'
-    }
 }
 
 processResources
@@ -63,36 +45,13 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
-}
 
-shadowJar {
-    dependencies {
-        include(dependency('org.spongepowered:mixin'))
-    }
-    exclude 'dummyThing'
-    exclude 'LICENSE.txt'
-    classifier = 'all'
-}
-
-mixin {
-    defaultObfuscationEnv searge
-    add sourceSets.main, 'refmap.blm.json'
-}
-
-reobf {
-    shadowJar {
-        mappingType = 'SEARGE'
-        classpath = sourceSets.main.compileClasspath
-    }
+    rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
 jar.manifest.attributes(
-        'MixinConfigs': 'mixins.blm.json',
-        'tweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
-        'TweakOrder': 0,
         'FMLCorePluginContainsFMLMod': 'true',
         'FMLCorePlugin': 'me.gavin.blm.BLMCoreMod',
         'ForceLoadAsMod': 'true',
+        'FMLAT': 'blm_at.cfg'
 )
-
-build.dependsOn(shadowJar)

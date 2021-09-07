@@ -2,7 +2,6 @@ package me.gavin.blm.misc;
 
 import me.gavin.blm.events.PacketEvent;
 import me.gavin.blm.events.PlayerChatEvent;
-import me.gavin.blm.mixins.access.ICPacketChatMessage;
 import net.minecraft.network.play.client.CPacketChatMessage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -20,7 +19,7 @@ public final class EventProcessor {
             if (MinecraftForge.EVENT_BUS.post(chatEvent))
                 event.setCanceled(true);
 
-            ((ICPacketChatMessage)packet).setMessageAccessor(chatEvent.getMessage());
+            //((ICPacketChatMessage)packet).setMessageAccessor(chatEvent.getMessage());
         }
     }
 }

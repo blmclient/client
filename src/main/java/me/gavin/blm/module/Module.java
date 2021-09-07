@@ -94,6 +94,7 @@ public abstract class Module implements MC {
 		Render,
 		World,
 		Player,
+		Chat,
 		Other
 	}
 	

@@ -3,6 +3,7 @@ package me.gavin.blm.module;
 import com.google.common.reflect.ClassPath;
 import net.minecraft.launchwrapper.Launch;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public final class ModuleManager {
                     final Class<?> clazz = info.load();
                     if (!Modifier.isAbstract(clazz.getModifiers()) && Module.class.isAssignableFrom(clazz)) {
                         loadModule((Class<? extends Module>) clazz);
+                        System.out.println("Loaded class " + clazz.getName());
                     }
                 }
             }
@@ -30,10 +32,12 @@ public final class ModuleManager {
     }
 
     private void loadModule(Class<? extends Module> clazz) throws Exception {
-        if (clazz.getDeclaredConstructors().length == 0) {
-            final Module module = clazz.newInstance();
-            modules.add(module);
-            moduleMap.put(clazz, module);
+        for (Constructor<?> constructor : clazz.getConstructors()) {
+            if (constructor.getParameterCount() == 0) {
+                final Module module = (Module) constructor.newInstance();
+                modules.add(module);
+                moduleMap.put(clazz, module);
+            }
         }
     }
 
@@ -43,6 +47,16 @@ public final class ModuleManager {
 
     public <T extends Module> T getModule(Class<T> clazz) {
         return (T) moduleMap.get(clazz);
+    }
+
+    @Deprecated
+    public Module getModule(String name) {
+        for (Module module : modules) {
+            if (module.getName().equalsIgnoreCase(name))
+                return module;
+        }
+
+        return null;
     }
 
     public ArrayList<Module> getCategoryMods(Module.Category category) {

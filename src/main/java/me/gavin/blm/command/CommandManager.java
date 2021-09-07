@@ -2,6 +2,7 @@ package me.gavin.blm.command;
 
 import me.gavin.blm.command.commands.HelpCmd;
 import me.gavin.blm.command.commands.PrefixCmd;
+import me.gavin.blm.command.commands.ToggleCmd;
 import me.gavin.blm.events.PlayerChatEvent;
 import me.gavin.blm.misc.MC;
 import net.minecraft.util.text.TextComponentString;
@@ -24,6 +25,7 @@ public final class CommandManager implements MC {
         // add commands
         commands.add(new HelpCmd());
         commands.add(new PrefixCmd());
+        commands.add(new ToggleCmd());
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)

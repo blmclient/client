@@ -3,7 +3,7 @@ package me.gavin.blm.command.commands;
 import me.gavin.blm.command.Command;
 import me.gavin.blm.misc.Util;
 
-public class HelpCmd extends Command {
+public final class HelpCmd extends Command {
     public HelpCmd() {
         super("help", "Shows this message", "help|?", "?");
     }

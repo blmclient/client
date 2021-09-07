@@ -1,18 +1,18 @@
 package me.gavin.blm;
 
+import me.gavin.blm.asm.ASMClassTransformer;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-import org.spongepowered.asm.launch.MixinBootstrap;
-import org.spongepowered.asm.mixin.MixinEnvironment;
-import org.spongepowered.asm.mixin.Mixins;
 
 import java.util.Map;
 
-@IFMLLoadingPlugin.Name("BLM Mixins")
+@IFMLLoadingPlugin.Name("BLM ASM")
 @IFMLLoadingPlugin.MCVersion("1.10.2")
 public final class BLMCoreMod implements IFMLLoadingPlugin {
     @Override
     public String[] getASMTransformerClass() {
-        return new String[0];
+        return new String[] {
+                ASMClassTransformer.class.getName()
+        };
     }
 
     @Override
@@ -27,9 +27,7 @@ public final class BLMCoreMod implements IFMLLoadingPlugin {
 
     @Override
     public void injectData(Map<String, Object> data) {
-        MixinBootstrap.init();
-        Mixins.addConfiguration("mixins.blm.json");
-        MixinEnvironment.getDefaultEnvironment().setObfuscationContext("searge");
+
     }
 
     @Override

@@ -6,7 +6,7 @@ import net.minecraft.util.text.TextComponentString;
 
 import static com.mojang.realmsclient.gui.ChatFormatting.*;
 
-public class Util implements MC {
+public final class Util implements MC {
 
     public static final String CHAT_PREFIX = DARK_RED + "{" + RED + BLMClient.MODID + DARK_RED + "} " + RESET;
 
