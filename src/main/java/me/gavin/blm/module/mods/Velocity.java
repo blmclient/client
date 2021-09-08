@@ -1,8 +1,12 @@
 package me.gavin.blm.module.mods;
 
-import me.gavin.blm.events.EntityPushedByWaterEvent;
+import me.gavin.blm.events.PacketEvent;
+import me.gavin.blm.events.PlayerPushedByWaterEvent;
+import me.gavin.blm.events.PlayerUpdateEvent;
 import me.gavin.blm.module.Module;
 import me.gavin.blm.setting.NumberSetting;
+import net.minecraft.network.play.server.SPacketEntityVelocity;
+import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Module.Info(
@@ -21,10 +25,29 @@ public final class Velocity extends Module {
     }
 
     @SubscribeEvent
-    public void onWaterPush(EntityPushedByWaterEvent event) {
+    public void onWaterPush(PlayerPushedByWaterEvent event) {
         if (event.getEntityId() == mc.thePlayer.entityId) {
-            System.out.println("cancelling water push");
             event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPacketReceive(PacketEvent.Receive event) {
+        if (event.getPacket() instanceof SPacketEntityVelocity) {
+            final SPacketEntityVelocity velocityPacket = (SPacketEntityVelocity) event.getPacket();
+            if (velocityPacket.getEntityID() == mc.thePlayer.getEntityId()) {
+                if (horizontal.getValue() == 0 && vertical.getValue() == 0) {
+                    event.setCanceled(true);
+                }
+
+                velocityPacket.motionX *= horizontal.getValue();
+                velocityPacket.motionY *= vertical.getValue();
+                velocityPacket.motionZ *= horizontal.getValue();
+            }
+        } else if (event.getPacket() instanceof SPacketExplosion) {
+            final SPacketExplosion explosionPacket = (SPacketExplosion) event.getPacket();
+
+            explosionPacket.
         }
     }
 }

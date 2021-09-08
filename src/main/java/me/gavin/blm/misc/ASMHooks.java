@@ -12,7 +12,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.util.MovementInput;
 import net.minecraftforge.common.MinecraftForge;
-import org.lwjgl.opengl.GL11;
 import org.objectweb.asm.Type;
 
 public final class ASMHooks {
@@ -84,13 +83,12 @@ public final class ASMHooks {
             float netHeadYaw,
             float headPitch,
             float scaleFactor) {
-        GL11.glDepthRange(0.0, 0.01);
+//        GL11.glDepthRange(0.0, 0.01);
         modelBase.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
-        GL11.glDepthRange(0.0, 1.0);
+//        GL11.glDepthRange(0.0, 1.0);
     }
 
     public static boolean isPushedByWaterHook(int entityId) {
-        System.out.println("bwa");
-        return MinecraftForge.EVENT_BUS.post(new EntityPushedByWaterEvent(entityId));
+        return MinecraftForge.EVENT_BUS.post(new PlayerPushedByWaterEvent(entityId));
     }
 }

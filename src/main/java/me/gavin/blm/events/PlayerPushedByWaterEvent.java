@@ -4,11 +4,11 @@ import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 @Cancelable
-public class EntityPushedByWaterEvent extends Event {
+public final class PlayerPushedByWaterEvent extends Event {
 
     private final int entityId;
 
-    public EntityPushedByWaterEvent(int entityId) {
+    public PlayerPushedByWaterEvent(int entityId) {
         this.entityId = entityId;
     }
 

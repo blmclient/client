@@ -43,6 +43,7 @@ public final class EntityPlayerSPPatch extends ClassPatch {
         // insert after target insn
         methodNode.instructions.insertBefore(targetMethodInsn.getNext(), insnList);
 
+
         // portalGui thing
 
         // find target method insn

@@ -52,4 +52,16 @@ public final class ASMUtil {
     public static String insnToString(AbstractInsnNode insn, MethodNode methodNode) {
         return insn.getOpcode() + " " + insn.getClass().getName() + " " + methodNode.instructions.indexOf(insn);
     }
+
+    public static InsnNode findInsn(MethodNode methodNode, int opcode, int ordinal) {
+        final List<InsnNode> list = new ArrayList<>();
+        for (AbstractInsnNode insn : methodNode.instructions.toArray()) {
+            if (insn instanceof InsnNode) {
+                if (insn.getOpcode() == opcode)
+                    list.add((InsnNode)insn);
+            }
+        }
+
+        return list.get(ordinal);
+    }
 }

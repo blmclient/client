@@ -20,7 +20,7 @@ public final class PatchManager {
         patches.add(new GuiNewChatPatch());
         patches.add(new RenderPlayerPatch());
         patches.add(new RenderLivingBasePatch());
-        patches.add(new EntityPatch());
+        patches.add(new EntityPlayerPatch());
     }
 
     public ClassPatch getPatch(String className) {
