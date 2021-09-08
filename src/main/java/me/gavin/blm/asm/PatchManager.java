@@ -18,6 +18,7 @@ public final class PatchManager {
         patches.add(new EntityPlayerSPPatch());
         patches.add(new BlockPortalPatch());
         patches.add(new GuiNewChatPatch());
+        patches.add(new RenderPlayerPatch());
     }
 
     public ClassPatch getPatch(String className) {
