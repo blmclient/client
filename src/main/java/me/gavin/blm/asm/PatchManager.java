@@ -16,11 +16,12 @@ public final class PatchManager {
         patches.add(new NetworkManagerPatch());
         patches.add(new EntityRendererPatch());
         patches.add(new EntityPlayerSPPatch());
-        patches.add(new BlockPortalPatch());
         patches.add(new GuiNewChatPatch());
         patches.add(new RenderPlayerPatch());
         patches.add(new RenderLivingBasePatch());
         patches.add(new EntityPlayerPatch());
+        patches.add(new EntityPatch());
+        patches.add(new BlockPatch());
     }
 
     public ClassPatch getPatch(String className) {

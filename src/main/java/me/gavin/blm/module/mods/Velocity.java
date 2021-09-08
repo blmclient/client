@@ -2,7 +2,6 @@ package me.gavin.blm.module.mods;
 
 import me.gavin.blm.events.PacketEvent;
 import me.gavin.blm.events.PlayerPushedByWaterEvent;
-import me.gavin.blm.events.PlayerUpdateEvent;
 import me.gavin.blm.module.Module;
 import me.gavin.blm.setting.NumberSetting;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
@@ -46,8 +45,9 @@ public final class Velocity extends Module {
             }
         } else if (event.getPacket() instanceof SPacketExplosion) {
             final SPacketExplosion explosionPacket = (SPacketExplosion) event.getPacket();
-
-            explosionPacket.
+            explosionPacket.motionX *= horizontal.getValue();
+            explosionPacket.motionY *= vertical.getValue();
+            explosionPacket.motionZ *= horizontal.getValue();
         }
     }
 }

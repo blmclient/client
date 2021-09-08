@@ -3,6 +3,7 @@ package me.gavin.blm.misc;
 import me.gavin.blm.BLMClient;
 import me.gavin.blm.events.*;
 import me.gavin.blm.module.mods.Fullbright;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.Gui;
@@ -56,11 +57,6 @@ public final class ASMHooks {
         return MinecraftForge.EVENT_BUS.post(new PacketEvent.Receive(packet));
     }
 
-    public static boolean isCollidableHook() {
-        System.out.println("test test");
-        return !MinecraftForge.EVENT_BUS.post(new BlockPortalHitboxEvent());
-    }
-
     public static void drawChatHook(int left, int top, int right, int bottom, int color) {
         if (!MinecraftForge.EVENT_BUS.post(new GuiChatBackgroundEvent())) {
             Gui.drawRect(left, top, right, bottom, color);
@@ -90,5 +86,13 @@ public final class ASMHooks {
 
     public static boolean isPushedByWaterHook(int entityId) {
         return MinecraftForge.EVENT_BUS.post(new PlayerPushedByWaterEvent(entityId));
+    }
+
+    public static boolean applyEntityCollisionHook(Entity entity) {
+        return MinecraftForge.EVENT_BUS.post(new EntityPushedEvent(entity));
+    }
+
+    public static boolean isCollidableHook(Block block) {
+        return MinecraftForge.EVENT_BUS.post(new BlockCollisionEvent(block));
     }
 }

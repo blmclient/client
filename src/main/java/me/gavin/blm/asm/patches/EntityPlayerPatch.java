@@ -17,7 +17,7 @@ public final class EntityPlayerPatch extends ClassPatch {
             obfDesc = "()Z"
     )
     public void isPushedByWaterPatch(MethodNode methodNode, boolean deobfuscated) {
-        // mkae instruction list
+        // make instruction list
         final InsnList insnList = new InsnList();
         // load "this" a0 onto stack
         insnList.add(new VarInsnNode(ALOAD, 0));
