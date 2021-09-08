@@ -1,6 +1,7 @@
 package me.gavin.blm;
 
 import me.gavin.blm.command.CommandManager;
+import me.gavin.blm.gui.ClickGuiDisplayScreen;
 import me.gavin.blm.misc.EventProcessor;
 import me.gavin.blm.module.ModuleManager;
 import net.minecraft.block.BlockPortal;
@@ -30,10 +31,13 @@ public final class BLMClient
 
     private CommandManager commandManager;
 
+    private ClickGuiDisplayScreen clickGui;
+
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
+        clickGui = new ClickGuiDisplayScreen();
         MinecraftForge.EVENT_BUS.register(new EventProcessor());
     }
 
@@ -43,5 +47,9 @@ public final class BLMClient
 
     public CommandManager getCommandManager() {
         return commandManager;
+    }
+
+    public ClickGuiDisplayScreen getClickGui() {
+        return clickGui;
     }
 }
