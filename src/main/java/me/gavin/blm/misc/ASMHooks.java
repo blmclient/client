@@ -5,6 +5,7 @@ import me.gavin.blm.events.*;
 import me.gavin.blm.module.mods.Fullbright;
 import me.gavin.blm.module.mods.Portals;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.network.Packet;
@@ -63,5 +64,12 @@ public final class ASMHooks {
         if (!MinecraftForge.EVENT_BUS.post(new GuiChatBackgroundEvent())) {
             Gui.drawRect(left, top, right, bottom, color);
         }
+    }
+
+    public static boolean renderEntityNameHook(
+            AbstractClientPlayer player,
+            double x, double y, double z,
+            String name, double distanceSq) {
+        return MinecraftForge.EVENT_BUS.post(new RenderPlayerNameplateEvent(player, x, y, z, name, distanceSq));
     }
 }

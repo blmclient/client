@@ -2,6 +2,7 @@ package me.gavin.blm.module.mods;
 
 import com.google.common.collect.Lists;
 import com.mojang.realmsclient.gui.ChatFormatting;
+import me.gavin.blm.events.RenderPlayerNameplateEvent;
 import me.gavin.blm.misc.ProjectionUtils;
 import me.gavin.blm.misc.RenderUtil;
 import me.gavin.blm.misc.Util;
@@ -34,6 +35,11 @@ public final class Nametags extends Module {
     @Override
     protected void init() {
         addSettings(scale, health, ping, armor, items);
+    }
+
+    @SubscribeEvent
+    public void onRenderPlayerNameplate(RenderPlayerNameplateEvent event) {
+        event.setCanceled(true);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
