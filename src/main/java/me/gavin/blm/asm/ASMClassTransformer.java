@@ -71,10 +71,6 @@ public final class ASMClassTransformer implements IClassTransformer {
                 }
             }
         }
-
-        for (MethodNode methodNode : classNode.methods) {
-            System.out.println(methodNode.name + methodNode.desc);
-        }
         return ASMUtil.toBytes(classNode);
     }
 }

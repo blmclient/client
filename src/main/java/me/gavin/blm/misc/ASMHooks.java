@@ -5,6 +5,7 @@ import me.gavin.blm.events.*;
 import me.gavin.blm.module.mods.Fullbright;
 import me.gavin.blm.module.mods.Portals;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.network.Packet;
 import net.minecraft.util.MovementInput;
@@ -56,5 +57,11 @@ public final class ASMHooks {
     public static boolean isCollidableHook() {
         System.out.println("test test");
         return !MinecraftForge.EVENT_BUS.post(new BlockPortalHitboxEvent());
+    }
+
+    public static void drawChatHook(int left, int top, int right, int bottom, int color) {
+        if (!MinecraftForge.EVENT_BUS.post(new GuiChatBackgroundEvent())) {
+            Gui.drawRect(left, top, right, bottom, color);
+        }
     }
 }

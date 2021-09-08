@@ -7,6 +7,7 @@ import me.gavin.blm.module.Module;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.network.play.client.CPacketChatMessage;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -41,5 +42,10 @@ public final class EventProcessor implements MC {
                 y += 1 + mc.fontRendererObj.FONT_HEIGHT;
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onRenderLast(RenderWorldLastEvent event) {
+        ProjectionUtils.updateMatrix();
     }
 }

@@ -24,6 +24,7 @@ public final class CommandManager implements MC {
         commands.add(new PrefixCmd());
         commands.add(new ToggleCmd());
         commands.add(new ModulesCmd());
+        commands.add(new FakePlayerCmd());
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)

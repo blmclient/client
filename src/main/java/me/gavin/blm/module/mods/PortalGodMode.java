@@ -10,10 +10,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
         description = "Take no damage after going thru a portal",
         category = Module.Category.Other
 )
-public class PortalGodMode extends Module {
+public final class PortalGodMode extends Module {
 
     @SubscribeEvent
     public void onPacket(PacketEvent.Send event) {
-        if (event.getPacket() instanceof CPacketConfirmTeleport) {}
+        if (event.getPacket() instanceof CPacketConfirmTeleport && mc.thePlayer.inPortal) {
+            event.setCanceled(true);
+        }
     }
 }

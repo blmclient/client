@@ -4,7 +4,7 @@ import me.gavin.blm.asm.ClassPatch;
 import me.gavin.blm.asm.SpecialPatch;
 import org.objectweb.asm.tree.ClassNode;
 
-public class BlockPortalPatch extends ClassPatch {
+public final class BlockPortalPatch extends ClassPatch {
     public BlockPortalPatch() {
         super("net.minecraft.block.BlockPortal", "any");
     }

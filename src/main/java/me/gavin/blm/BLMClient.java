@@ -35,10 +35,6 @@ public final class BLMClient
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
         MinecraftForge.EVENT_BUS.register(new EventProcessor());
-
-       for (Method method : BlockPortal.class.getDeclaredMethods()) {
-            System.out.println(method.getName());
-       }
     }
 
     public ModuleManager getModuleManager() {
