@@ -4,7 +4,6 @@ import me.gavin.blm.misc.ASMUtil;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.Sys;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
@@ -60,6 +59,22 @@ public final class ASMClassTransformer implements IClassTransformer {
             }
         }
 
+        for (Method method : patch.getClass().getDeclaredMethods()) {
+            if (!method.isAccessible())
+                method.setAccessible(true);
+            if (method.isAnnotationPresent(SpecialPatch.class) && method.getParameterCount() == 2 && method.getParameterTypes()[0] == ClassNode.class) {
+                try {
+                    method.invoke(patch, classNode, PatchManager.deobfuscated);
+                    logger.info("Transformed special patch for " + transformedName);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        for (MethodNode methodNode : classNode.methods) {
+            System.out.println(methodNode.name + methodNode.desc);
+        }
         return ASMUtil.toBytes(classNode);
     }
 }

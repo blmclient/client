@@ -55,7 +55,8 @@ public final class Tracers extends Module {
         GlStateManager.disableTexture2D();
         GlStateManager.disableLighting();
         GlStateManager.disableDepth();
-        GL11.glDisable(GL11.GL_LINE_SMOOTH);
+        GL11.glEnable(GL11.GL_LINE_SMOOTH);
+        GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
         GlStateManager.glLineWidth(1f);
         GlStateManager.color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, 1f);
         GL11.glEnable(GL32.GL_DEPTH_CLAMP);

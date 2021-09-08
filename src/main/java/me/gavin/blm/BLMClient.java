@@ -3,9 +3,12 @@ package me.gavin.blm;
 import me.gavin.blm.command.CommandManager;
 import me.gavin.blm.misc.EventProcessor;
 import me.gavin.blm.module.ModuleManager;
+import net.minecraft.block.BlockPortal;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+
+import java.lang.reflect.Method;
 
 @Mod(
         name = BLMClient.NAME,
@@ -32,6 +35,10 @@ public final class BLMClient
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
         MinecraftForge.EVENT_BUS.register(new EventProcessor());
+
+       for (Method method : BlockPortal.class.getDeclaredMethods()) {
+            System.out.println(method.getName());
+       }
     }
 
     public ModuleManager getModuleManager() {

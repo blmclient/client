@@ -1,14 +1,10 @@
 package me.gavin.blm.misc;
 
 import me.gavin.blm.BLMClient;
-import me.gavin.blm.events.HurtCameraEffectEvent;
-import me.gavin.blm.events.MovementInputUpdateEvent;
-import me.gavin.blm.events.PacketEvent;
-import me.gavin.blm.events.PlayerUpdateEvent;
+import me.gavin.blm.events.*;
 import me.gavin.blm.module.mods.Fullbright;
-import me.gavin.blm.module.mods.PortalGui;
+import me.gavin.blm.module.mods.Portals;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.network.Packet;
 import net.minecraft.util.MovementInput;
@@ -48,8 +44,17 @@ public final class ASMHooks {
     }
 
     public static void onLivingUpdateHook(Minecraft mc, GuiScreen screen) {
-        if (!BLMClient.INSTANCE.getModuleManager().getModule(PortalGui.class).isEnabled()) {
+        if (!MinecraftForge.EVENT_BUS.post(new PortalGuiClosedEvent(screen))) {
             mc.displayGuiScreen(screen);
         }
+    }
+
+    public static boolean channelRead0Hook(Packet<?> packet) {
+        return MinecraftForge.EVENT_BUS.post(new PacketEvent.Receive(packet));
+    }
+
+    public static boolean isCollidableHook() {
+        System.out.println("test test");
+        return !MinecraftForge.EVENT_BUS.post(new BlockPortalHitboxEvent());
     }
 }
