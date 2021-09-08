@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.GL_LINES;
+import static org.lwjgl.opengl.GL11.GL_LINE_LOOP;
 
 public final class RenderUtil implements MC {
 
@@ -33,5 +34,39 @@ public final class RenderUtil implements MC {
         mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, itemStack, posX, posY);
         RenderHelper.disableStandardItemLighting();
         mc.getRenderItem().zLevel = 0.0f;
+    }
+
+    public static void outline2d(float x1, float y1, float x2, float y2, int color) {
+        final Tessellator tessellator = Tessellator.getInstance();
+        final VertexBuffer buffer = tessellator.getBuffer();
+
+        float j;
+        if (x1 < x2) {
+            j = x1;
+            x1 = x2;
+            x2 = j;
+        }
+
+        if (y1 < y2) {
+            j = y1;
+            y1 = y2;
+            y2 = j;
+        }
+
+        float r = (float)(color >> 16 & 255) / 255.0F;
+        float g = (float)(color >> 8 & 255) / 255.0F;
+        float b = (float)(color & 255) / 255.0F;
+        float a = (float)(color >> 24 & 255) / 255.0F;
+
+        GlStateManager.disableTexture2D();
+        GlStateManager.glLineWidth(1f);
+        GlStateManager.color(r, g, b, a);
+        buffer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
+        buffer.pos(x1, y1, 0.0).endVertex();
+        buffer.pos(x2, y1, 0.0).endVertex();
+        buffer.pos(x2, y2, 0.0).endVertex();
+        buffer.pos(x1, y2, 0.0).endVertex();
+        tessellator.draw();
+        GlStateManager.enableTexture2D();
     }
 }

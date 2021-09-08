@@ -12,6 +12,6 @@ public class Rect {
     }
 
     public boolean isInside(int posX, int posY) {
-        return posX > x && posY > y && posX < x + width && posY > y + height;
+        return posX > x && posY > y && posX < x + width && posY < y + height;
     }
 }

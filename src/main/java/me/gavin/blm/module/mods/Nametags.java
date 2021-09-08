@@ -79,7 +79,7 @@ public final class Nametags extends Module {
                         -(mc.fontRendererObj.FONT_HEIGHT + 2 ),
                         (mc.fontRendererObj.getStringWidth(str) + 2) / 2,
                         1,
-                        0xCF111111);
+                        0x90111111);
 
                 mc.fontRendererObj.drawStringWithShadow(str, -(mc.fontRendererObj.getStringWidth(str) / 2f), -(mc.fontRendererObj.FONT_HEIGHT), -1);
 
