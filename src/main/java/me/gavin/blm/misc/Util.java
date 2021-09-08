@@ -1,6 +1,7 @@
 package me.gavin.blm.misc;
 
 import me.gavin.blm.BLMClient;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
@@ -43,5 +44,27 @@ public final class Util implements MC {
 
     public static ITextComponent getComponent(String str) {
         return new TextComponentString(str);
+    }
+
+    public static float[] calculateLookAt(double x, double y, double z, EntityPlayer me) {
+        double dirx = me.posX - x;
+        double diry = me.posY + me.getEyeHeight() - y;
+        double dirz = me.posZ - z;
+
+        double distance = Math.sqrt(dirx * dirx + diry * diry + dirz * dirz);
+
+        dirx /= distance;
+        diry /= distance;
+        dirz /= distance;
+
+        float pitch = (float)Math.asin(diry);
+        float yaw = (float)Math.atan2(dirz, dirx);
+
+        pitch = pitch * 180.0f / (float)Math.PI;
+        yaw = yaw * 180.0f / (float)Math.PI;
+
+        yaw += 90.0f;
+
+        return new float[] {yaw, pitch};
     }
 }

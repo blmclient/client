@@ -3,14 +3,16 @@ package me.gavin.blm.misc;
 import me.gavin.blm.BLMClient;
 import me.gavin.blm.events.*;
 import me.gavin.blm.module.mods.Fullbright;
-import me.gavin.blm.module.mods.Portals;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.util.MovementInput;
 import net.minecraftforge.common.MinecraftForge;
+import org.lwjgl.opengl.GL11;
 import org.objectweb.asm.Type;
 
 public final class ASMHooks {
@@ -71,5 +73,24 @@ public final class ASMHooks {
             double x, double y, double z,
             String name, double distanceSq) {
         return MinecraftForge.EVENT_BUS.post(new RenderPlayerNameplateEvent(player, x, y, z, name, distanceSq));
+    }
+
+    public static void renderHook(
+            ModelBase modelBase,
+            Entity entity,
+            float limbSwing,
+            float limbSwingAmount,
+            float ageInTicks,
+            float netHeadYaw,
+            float headPitch,
+            float scaleFactor) {
+        GL11.glDepthRange(0.0, 0.01);
+        modelBase.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+        GL11.glDepthRange(0.0, 1.0);
+    }
+
+    public static boolean isPushedByWaterHook(int entityId) {
+        System.out.println("bwa");
+        return MinecraftForge.EVENT_BUS.post(new EntityPushedByWaterEvent(entityId));
     }
 }

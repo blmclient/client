@@ -34,11 +34,11 @@ public final class EventProcessor implements MC {
     public void onRenderOverlay(RenderGameOverlayEvent.Text event) {
         final ScaledResolution sr = new ScaledResolution(mc);
 
-        mc.fontRendererObj.drawStringWithShadow(DARK_RED + BLMClient.NAME + " " + BLMClient.VERSION, 2f, 2f, -1);
+        mc.fontRendererObj.drawStringWithShadow(BLMClient.NAME + " " + BLMClient.VERSION, 2f, 2f, -1);
         int y = 2;
         for (Module module : blm.getModuleManager().getModules()) {
             if (module.isEnabled()) {
-                mc.fontRendererObj.drawStringWithShadow(DARK_RED + module.getName(), sr.getScaledWidth() - mc.fontRendererObj.getStringWidth(module.getName()) - 2, y, -1);
+                mc.fontRendererObj.drawStringWithShadow(module.getName(), sr.getScaledWidth() - mc.fontRendererObj.getStringWidth(module.getName()) - 2, y, -1);
                 y += 1 + mc.fontRendererObj.FONT_HEIGHT;
             }
         }

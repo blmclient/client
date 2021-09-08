@@ -32,6 +32,7 @@ public final class FakePlayerCmd extends Command {
             final EntityOtherPlayerMP player = new EntityOtherPlayerMP(mc.theWorld, new GameProfile(mc.thePlayer.getUniqueID(), args[1]));
             player.copyLocationAndAnglesFrom(mc.thePlayer);
             player.rotationYawHead = mc.thePlayer.rotationYaw;
+            fakePlayers.add(player);
             mc.theWorld.addEntityToWorld((int) -((Math.random() * 6969) + 1), player);
             Util.sendClientMessage("Added \"" + args[1] + "\" to the world");
         } else if (args[0].equals("delete")) {
@@ -39,6 +40,7 @@ public final class FakePlayerCmd extends Command {
                 if (playerMP.getName().equalsIgnoreCase(args[1])) {
                     mc.theWorld.removeEntity(playerMP);
                     fakePlayers.remove(playerMP);
+                    Util.sendClientMessage("Deleted " + args[1]);
                     return;
                 }
             }

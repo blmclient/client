@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 // adapted from KAMI blue's ProjectionUtils.kt
 // manually converted from kotlin to java
-public class ProjectionUtils {
+public final class ProjectionUtils {
     private final static Minecraft mc = Minecraft.getMinecraft();
     private final static Matrix4f modelMatrix = new Matrix4f();
     private final static Matrix4f projectionMatrix = new Matrix4f();

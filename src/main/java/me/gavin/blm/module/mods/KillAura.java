@@ -1,6 +1,8 @@
 package me.gavin.blm.module.mods;
 
+import me.gavin.blm.events.PacketEvent;
 import me.gavin.blm.events.PlayerUpdateEvent;
+import me.gavin.blm.misc.Util;
 import me.gavin.blm.module.Module;
 import me.gavin.blm.setting.BoolSetting;
 import me.gavin.blm.setting.NumberSetting;
@@ -8,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -69,6 +72,19 @@ public final class KillAura extends Module {
             mc.playerController.attackEntity(mc.thePlayer, entity);
             if (swing.getValue())
                 mc.thePlayer.swingArm(EnumHand.MAIN_HAND);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPacket(PacketEvent.Send event) {
+        if (targetEntity != null) {
+            if (event.getPacket() instanceof CPacketPlayer) {
+                final CPacketPlayer cPacketPlayer = (CPacketPlayer) event.getPacket();
+                final float[] rotations = Util.calculateLookAt(targetEntity.posX, targetEntity.posY + targetEntity.getEyeHeight(), targetEntity.posZ, mc.thePlayer);
+
+                cPacketPlayer.yaw = rotations[0];
+                cPacketPlayer.pitch = rotations[1];
+            }
         }
     }
 }
