@@ -42,5 +42,20 @@ public final class EntityPlayerSPPatch extends ClassPatch {
         final MethodInsnNode targetMethodInsn = ASMUtil.findMethodInsn(methodNode, INVOKEVIRTUAL, methodOwner, methodName, "()V", 0);
         // insert after target insn
         methodNode.instructions.insertBefore(targetMethodInsn.getNext(), insnList);
+
+        // portalGui thing
+
+        // find target method insn
+        final String methodOwner2 = deobfuscated ? "net/minecraft/client/Minecraft" : "bcx";
+        final String methodName2 = deobfuscated ? "displayGuiScreen" : "a";
+        final String methodDesc2 = deobfuscated ? "(Lnet/minecraft/client/gui/GuiScreen;)V" : "(Lbft;)V";
+        final MethodInsnNode targetMethodInsn2 = ASMUtil.findMethodInsn(methodNode, INVOKEVIRTUAL, methodOwner2, methodName2, methodDesc2, 0);
+        // create hook insn
+        final String hookDesc = deobfuscated ?
+                "(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/GuiScreen;)V" :
+                "(Lbcx;Lbft;)";
+        final MethodInsnNode hookInsn = new MethodInsnNode(INVOKESTATIC, ASMHooks.internalName, "onLivingUpdateHook", hookDesc, false);
+        // replace target insn
+        methodNode.instructions.set(targetMethodInsn2, hookInsn);
     }
 }

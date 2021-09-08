@@ -30,7 +30,6 @@ public final class BLMCoreMod implements IFMLLoadingPlugin {
     public void injectData(Map<String, Object> data) {
         final boolean isObfuscated = (boolean) data.getOrDefault("runtimeDeobfuscationEnabled", true);
         PatchManager.deobfuscated = !isObfuscated;
-        System.out.println(PatchManager.deobfuscated);
     }
 
     @Override

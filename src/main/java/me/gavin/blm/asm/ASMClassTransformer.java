@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 
 public final class ASMClassTransformer implements IClassTransformer {
 
-    public static PatchManager patchManager = new PatchManager();
+    public static PatchManager patchManager = PatchManager.INSTANCE;
 
     private final Logger logger;
 

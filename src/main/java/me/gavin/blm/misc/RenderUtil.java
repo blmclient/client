@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 import static org.lwjgl.opengl.GL11.GL_LINES;
 
-public class RenderUtil {
+public final class RenderUtil {
 
     public static void line3d(double x1, double y1, double z1, double x2, double y2, double z2) {
         final Tessellator tessellator = Tessellator.getInstance();

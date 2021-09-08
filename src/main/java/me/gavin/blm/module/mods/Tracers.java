@@ -25,7 +25,7 @@ import java.awt.*;
         description = "Draws lines to entities",
         category = Module.Category.Render
 )
-public class Tracers extends Module {
+public final class Tracers extends Module {
 
     private final BoolSetting players = new BoolSetting("Players", true);
     private final BoolSetting animals = new BoolSetting("Animals", true);

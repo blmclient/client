@@ -11,6 +11,8 @@ public final class PatchManager {
     public static boolean deobfuscated;
     private final ArrayList<ClassPatch> patches = new ArrayList<>();
 
+    public static PatchManager INSTANCE = new PatchManager();
+
     public PatchManager() {
         // add patches here
         patches.add(new NetworkManagerPatch());

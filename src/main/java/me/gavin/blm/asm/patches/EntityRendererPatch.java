@@ -4,10 +4,7 @@ import me.gavin.blm.asm.ClassPatch;
 import me.gavin.blm.asm.MethodPatch;
 import me.gavin.blm.misc.ASMHooks;
 import me.gavin.blm.misc.ASMUtil;
-import org.objectweb.asm.tree.InsnList;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.VarInsnNode;
+import org.objectweb.asm.tree.*;
 
 public final class EntityRendererPatch extends ClassPatch {
     public EntityRendererPatch() {
@@ -34,5 +31,30 @@ public final class EntityRendererPatch extends ClassPatch {
         final VarInsnNode targetNode = ASMUtil.findVarInsn(methodNode, FSTORE, 15, 2);
         // insert insn list after
         methodNode.instructions.insertBefore(targetNode.getNext(), insnList);
+    }
+
+    @MethodPatch(
+            name = "hurtCameraEffect",
+            desc = "(F)V",
+            obfName = "d",
+            obfDesc = "(F)V"
+    )
+    public void hurtCameraEffectPatch(MethodNode methodNode, boolean deobfuscated) {
+        // make instruction list
+        final InsnList insnList = new InsnList();
+        // load partialTicks (f1) onto stack
+        insnList.add(new VarInsnNode(FLOAD, 1));
+        // call hook method
+        insnList.add(new MethodInsnNode(INVOKESTATIC, ASMHooks.internalName, "hurtCameraEffectHook", "(F)Z", false));
+        // create jump label
+        final LabelNode jump = new LabelNode();
+        // add if equals (for event cancellation)
+        insnList.add(new JumpInsnNode(IFEQ, jump));
+        // return if true
+        insnList.add(new InsnNode(RETURN));
+        // finish if statement (jump)
+        insnList.add(jump);
+        // insert at head of method
+        methodNode.instructions.insert(insnList);
     }
 }
