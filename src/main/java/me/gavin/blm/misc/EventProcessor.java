@@ -11,6 +11,8 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
+import org.lwjgl.input.Keyboard;
 
 import static com.mojang.realmsclient.gui.ChatFormatting.*;
 
@@ -47,5 +49,15 @@ public final class EventProcessor implements MC {
     @SubscribeEvent
     public void onRenderLast(RenderWorldLastEvent event) {
         ProjectionUtils.updateMatrix();
+    }
+
+    @SubscribeEvent
+    public void onKeyPress(InputEvent.KeyInputEvent event) {
+        if (Keyboard.getEventKeyState()) {
+            for (Module module : blm.getModuleManager().getModules()) {
+                if (module.getBind() == Keyboard.getEventKey())
+                    module.toggle();
+            }
+        }
     }
 }

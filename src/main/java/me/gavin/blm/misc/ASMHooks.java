@@ -47,7 +47,7 @@ public final class ASMHooks {
         return MinecraftForge.EVENT_BUS.post(new HurtCameraEffectEvent(partialTicks));
     }
 
-    public static void onLivingUpdateHook(Minecraft mc, GuiScreen screen) {
+    public static void onLivingUpdateHookRedirect(Minecraft mc, GuiScreen screen) {
         if (!MinecraftForge.EVENT_BUS.post(new PortalGuiClosedEvent(screen))) {
             mc.displayGuiScreen(screen);
         }

@@ -49,9 +49,11 @@ processResources
     rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
-jar.manifest.attributes(
-        'FMLCorePluginContainsFMLMod': 'true',
-        'FMLCorePlugin': 'me.gavin.blm.BLMCoreMod',
-        'ForceLoadAsMod': 'true',
-        'FMLAT': 'blm_at.cfg'
-)
+jar {
+    manifest.attributes(
+            'FMLCorePluginContainsFMLMod': 'true',
+            'FMLCorePlugin': 'me.gavin.blm.BLMCoreMod',
+            'ForceLoadAsMod': 'true',
+            'FMLAT': 'blm_at.cfg'
+    )
+}

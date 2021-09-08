@@ -23,7 +23,7 @@ public final class EntityPlayerSPPatch extends ClassPatch {
 
 
         // inserting movement update event hook
-
+  
         // create insn list
         final InsnList insnList = new InsnList();
         // load movementInput field onto stack
@@ -46,17 +46,15 @@ public final class EntityPlayerSPPatch extends ClassPatch {
 
         // portalGui thing
 
-        // find target method insn
-        final String methodOwner2 = deobfuscated ? "net/minecraft/client/Minecraft" : "bcx";
-        final String methodName2 = deobfuscated ? "displayGuiScreen" : "a";
-        final String methodDesc2 = deobfuscated ? "(Lnet/minecraft/client/gui/GuiScreen;)V" : "(Lbft;)V";
-        final MethodInsnNode targetMethodInsn2 = ASMUtil.findMethodInsn(methodNode, INVOKEVIRTUAL, methodOwner2, methodName2, methodDesc2, 0);
-        // create hook insn
-        final String hookDesc = deobfuscated ?
-                "(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/GuiScreen;)V" :
-                "(Lbcx;Lbft;)";
-        final MethodInsnNode hookInsn = new MethodInsnNode(INVOKESTATIC, ASMHooks.internalName, "onLivingUpdateHook", hookDesc, false);
-        // replace target insn
-        methodNode.instructions.set(targetMethodInsn2, hookInsn);
+        final String targetOwner = deobfuscated ? "net/minecraft/client/Minecraft" : "bcx";
+        final String targetName = deobfuscated ? "displayGuiScreen" : "a";
+        final String targetDesc = deobfuscated ? "(Lnet/minecraft/client/gui/GuiScreen;)V" : "(Lbft;)V";
+        final MethodInsnNode targetInsn = ASMUtil.findMethodInsn(methodNode, INVOKEVIRTUAL, targetOwner, targetName, targetDesc, 0);
+
+        if (targetInsn != null && methodNode.instructions.contains(targetInsn)) {
+            final String hookDesc = deobfuscated ? "(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/GuiScreen;)V" : "(Lbcx;Lbft;)V";
+
+            methodNode.instructions.set(targetInsn, new MethodInsnNode(INVOKESTATIC, ASMHooks.internalName, "onLivingUpdateHookRedirect", hookDesc, false));
+        }
     }
 }
