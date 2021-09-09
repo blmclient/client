@@ -39,6 +39,8 @@ public final class SliderComponent extends Component {
     public void draw(int mouseX, int mouseY, float partialTicks) {
         updateSlider(mouseX);
         mc.fontRendererObj.drawStringWithShadow(ChatFormatting.WHITE + setting.getName() + ": " + ChatFormatting.GRAY + setting.getValue(), x + 2f, 0.5f + y + (height / 2f) - (mc.fontRendererObj.FONT_HEIGHT / 2f),-1);
+
+        // rendering line
         final Tessellator tessellator = Tessellator.getInstance();
         final VertexBuffer buffer = tessellator.getBuffer();
         GlStateManager.disableTexture2D();
