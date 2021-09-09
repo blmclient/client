@@ -26,16 +26,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 )
 public final class Nametags extends Module {
 
-    private NumberSetting scale = new NumberSetting("Scale", 2.5f, 1.0f, 5.0f);
-    private BoolSetting health = new BoolSetting("Health", true);
-    private BoolSetting ping = new BoolSetting("Ping", true);
-    private BoolSetting armor = new BoolSetting("Armor", true);
-    private BoolSetting items = new BoolSetting("Items", true);
-
-    @Override
-    protected void init() {
-        addSettings(scale, health, ping, armor, items);
-    }
+    private final NumberSetting scale = new NumberSetting("Scale", 2.5f, 1.0f, 5.0f);
+    private final BoolSetting health = new BoolSetting("Health", true);
+    private final BoolSetting ping = new BoolSetting("Ping", true);
+    private final BoolSetting armor = new BoolSetting("Armor", true);
+    private final BoolSetting items = new BoolSetting("Items", true);
 
     @SubscribeEvent
     public void onRenderPlayerNameplate(RenderPlayerNameplateEvent event) {

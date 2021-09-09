@@ -15,11 +15,6 @@ public final class AntiLevitation extends Module {
 
     public final ModeSetting<Mode> mode = new ModeSetting<>("Mode", Mode.Remove);
 
-    @Override
-    protected void init() {
-        addSettings(mode);
-    }
-
     @SubscribeEvent
     public void onTick(PlayerUpdateEvent event) {
         if (mc.thePlayer.isPotionActive(MobEffects.LEVITATION)) {

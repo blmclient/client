@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public final class ClickGuiDisplayScreen extends GuiScreen implements MC {
@@ -22,16 +23,25 @@ public final class ClickGuiDisplayScreen extends GuiScreen implements MC {
 
         int xoffset = 10;
         for (Module.Category category : Module.Category.values()) {
-            final Frame frame = new Frame(category.name(), xoffset, 4, 120, 16, 2, 2);
+            final Frame frame = new Frame(category.name(), xoffset, 4, 120, 16, 1, 1);
             for (Module module : blm.getModuleManager().getCategoryMods(category)) {
-                final Button button = new Button(module, 0, 0, frame.width - 4, 12, 2, 2);
-                final int compWidth = button.width - 4;
+                final Button button = new Button(module, 0, 0, frame.width - 2, 12, 1, 1);
+                final int compWidth = button.width - 2;
                 final int compHeight = button.height;
                 button.getComponents().add(new BindComponent(module, 0, 0, compWidth, compHeight));
-                for (Setting setting : module.getSettings()) {
-                    if (setting instanceof BoolSetting) {
-                        button.getComponents().add(new BoolComponent((BoolSetting) setting, 0, 0, compWidth, compHeight));
+                try {
+                    for (Field field : module.getClass().getDeclaredFields()) {
+                        if (!field.isAccessible())
+                            field.setAccessible(true);
+                        if (Setting.class.isAssignableFrom(field.getType())) {
+                            final Setting setting = (Setting) field.get(module);
+                            if (setting instanceof BoolSetting) {
+                                button.getComponents().add(new BoolComponent((BoolSetting) setting, 0, 0, compWidth, compHeight));
+                            }
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 frame.getComponents().add(button);
             }

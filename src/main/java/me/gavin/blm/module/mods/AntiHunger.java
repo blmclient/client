@@ -17,14 +17,6 @@ public final class AntiHunger extends Module {
     public final BoolSetting onGround = new BoolSetting("OnGround", true);
     public final BoolSetting spoofSprint = new BoolSetting("SpoofSprint", true);
 
-    @Override
-    protected void init() {
-        addSettings(
-                onGround,
-                spoofSprint
-        );
-    }
-
     @SubscribeEvent
     public void onPacketSend(PacketEvent.Send event) {
         if (onGround.getValue()) {

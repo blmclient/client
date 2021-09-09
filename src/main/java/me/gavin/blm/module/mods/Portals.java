@@ -18,11 +18,6 @@ public final class Portals extends Module {
     // coming soon ig
     public final BoolSetting nohitbox = new BoolSetting("NoHitBox", true);
 
-    @Override
-    protected void init() {
-        addSettings(guis);
-    }
-
     @SubscribeEvent
     public void onGuiPortal(PortalGuiClosedEvent event) {
         if (guis.getValue())

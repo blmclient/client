@@ -19,11 +19,6 @@ public final class Velocity extends Module {
     private final NumberSetting vertical = new NumberSetting("Vertical", 0f, 0f, 1f);
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0f, 0f, 1f);
 
-    @Override
-    protected void init() {
-        addSettings(horizontal, vertical);
-    }
-
     @SubscribeEvent
     public void onWaterPush(PlayerPushedByWaterEvent event) {
         if (event.getEntityId() == mc.thePlayer.entityId) {

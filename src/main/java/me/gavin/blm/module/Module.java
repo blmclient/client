@@ -20,8 +20,7 @@ public abstract class Module implements MC {
 	private final String name;
 	private final String description;
 	private final Category category;
-	private final ArrayList<Setting> settings = new ArrayList<>();
-	
+
 	public Module() {
 		if (this.getClass().isAnnotationPresent(Info.class)) {
 			final Info info = this.getClass().getAnnotation(Info.class);
@@ -115,13 +114,5 @@ public abstract class Module implements MC {
 		int keybind() default Keyboard.KEY_NONE;
 		
 		boolean enabled() default false;
-	}
-
-	public ArrayList<Setting> getSettings() {
-		return settings;
-	}
-
-	protected void addSettings(Setting... settingsArr) {
-		settings.addAll(Arrays.asList(settingsArr));
 	}
 }
