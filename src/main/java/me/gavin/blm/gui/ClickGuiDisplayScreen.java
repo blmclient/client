@@ -2,8 +2,11 @@ package me.gavin.blm.gui;
 
 import me.gavin.blm.gui.api.Component;
 import me.gavin.blm.gui.setting.BindComponent;
+import me.gavin.blm.gui.setting.BoolComponent;
 import me.gavin.blm.misc.MC;
 import me.gavin.blm.module.Module;
+import me.gavin.blm.setting.BoolSetting;
+import me.gavin.blm.setting.Setting;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Mouse;
 
@@ -19,11 +22,17 @@ public final class ClickGuiDisplayScreen extends GuiScreen implements MC {
 
         int xoffset = 10;
         for (Module.Category category : Module.Category.values()) {
-            final Frame frame = new Frame(category.name(), xoffset, 4, 120, 16, 1, 1);
+            final Frame frame = new Frame(category.name(), xoffset, 4, 120, 16, 2, 2);
             for (Module module : blm.getModuleManager().getCategoryMods(category)) {
-                final Button button = new Button(module, 0, 0, frame.width - 2, 12, 2, 1);
-                button.getComponents().add(new BindComponent(module, 0, 0, button.width - 4, 12));
-
+                final Button button = new Button(module, 0, 0, frame.width - 4, 12, 2, 2);
+                final int compWidth = button.width - 4;
+                final int compHeight = button.height;
+                button.getComponents().add(new BindComponent(module, 0, 0, compWidth, compHeight));
+                for (Setting setting : module.getSettings()) {
+                    if (setting instanceof BoolSetting) {
+                        button.getComponents().add(new BoolComponent((BoolSetting) setting, 0, 0, compWidth, compHeight));
+                    }
+                }
                 frame.getComponents().add(button);
             }
             components.add(frame);

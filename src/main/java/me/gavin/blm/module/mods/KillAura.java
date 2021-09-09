@@ -30,6 +30,18 @@ public final class KillAura extends Module {
     private final BoolSetting mobs = new BoolSetting("Mobs", true);
     private final BoolSetting other = new BoolSetting("Other", false);
 
+    @Override
+    protected void init() {
+        addSettings(
+                range,
+                swing,
+                players,
+                animals,
+                mobs,
+                other
+        );
+    }
+
     private EntityLivingBase targetEntity = null;
 
     @SubscribeEvent

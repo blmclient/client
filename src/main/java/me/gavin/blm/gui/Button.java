@@ -70,14 +70,10 @@ public final class Button extends Component {
         if (open) {
             if (module.isEnabled()) {
                 final int settingHeight = getSettingsHeight();
-                // left
-                Gui.drawRect(x, y + height, x + 1, y + height + settingHeight, 0xc8ff0000);
-                // top
-                Gui.drawRect(x + 1, y + height, x + width - 1, y + height + ypadding - 1, 0xc8ff0000);
-                // bottom
-                Gui.drawRect(x + 1, y + height + settingHeight - 1, x + width - 1, y + height + settingHeight, 0xc8ff0000);
-                // right
-                Gui.drawRect(x + width - 1, y + height, x + width, y + height + settingHeight, 0xc8ff0000);
+                RenderUtil.drawRect(x, y + height, x + 0.75f, y + height + settingHeight, 0xc8ff0000);
+                RenderUtil.drawRect(x, y + height, x + width, y + height + 0.5f, 0xc8ff0000);
+                RenderUtil.drawRect(x + width - 1f, y + height, x + width, y + height + settingHeight, 0xc8ff0000);
+                RenderUtil.drawRect(x, y + height + settingHeight - 0.75f, x + width, y + height + 0.25f + settingHeight, 0xc8ff0000);
             }
             int yoffset = y + height + ypadding;
             for (Component component : components) {
@@ -115,6 +111,6 @@ public final class Button extends Component {
             height += component.height + ypadding;
         }
 
-        return height + 1;
+        return height;
     }
 }
