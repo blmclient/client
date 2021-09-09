@@ -1,7 +1,13 @@
 package me.gavin.blm.misc;
 
 import me.gavin.blm.BLMClient;
+import net.minecraft.client.audio.ISound;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
@@ -66,5 +72,9 @@ public final class Util implements MC {
         yaw += 90.0f;
 
         return new float[] {yaw, pitch};
+    }
+
+    public static void uiButtonClick() {
+        mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
 }

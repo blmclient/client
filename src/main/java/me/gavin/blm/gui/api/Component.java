@@ -1,6 +1,8 @@
 package me.gavin.blm.gui.api;
 
-public abstract class Component extends Rect {
+import me.gavin.blm.misc.MC;
+
+public abstract class Component extends Rect implements MC {
 
 
     public Component(int x, int y, int width, int height) {

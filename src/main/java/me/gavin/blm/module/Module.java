@@ -97,7 +97,6 @@ public abstract class Module implements MC {
 		Combat,
 		Movement,
 		Render,
-		World,
 		Player,
 		Chat,
 		Other

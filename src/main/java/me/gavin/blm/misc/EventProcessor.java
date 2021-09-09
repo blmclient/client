@@ -36,7 +36,7 @@ public final class EventProcessor implements MC {
     public void onRenderOverlay(RenderGameOverlayEvent.Text event) {
         final ScaledResolution sr = new ScaledResolution(mc);
 
-        mc.fontRendererObj.drawStringWithShadow(BLMClient.NAME + " " + BLMClient.VERSION, 2f, 2f, -1);
+//        mc.fontRendererObj.drawStringWithShadow(BLMClient.NAME + " " + BLMClient.VERSION, 2f, 2f, -1);
         int y = 2;
         for (Module module : blm.getModuleManager().getModules()) {
             if (module.isEnabled()) {

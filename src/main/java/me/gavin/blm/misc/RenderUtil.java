@@ -60,6 +60,7 @@ public final class RenderUtil implements MC {
 
         GlStateManager.disableTexture2D();
         GlStateManager.glLineWidth(1f);
+        GL11.glDisable(GL11.GL_LINE_SMOOTH);
         GlStateManager.color(r, g, b, a);
         buffer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
         buffer.pos(x1, y1, 0.0).endVertex();
