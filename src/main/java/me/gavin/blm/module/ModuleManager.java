@@ -1,9 +1,15 @@
 package me.gavin.blm.module;
 
 import com.google.common.reflect.ClassPath;
+import me.gavin.blm.gui.setting.BoolComponent;
+import me.gavin.blm.gui.setting.ModeComponent;
+import me.gavin.blm.setting.BoolSetting;
+import me.gavin.blm.setting.ModeSetting;
+import me.gavin.blm.setting.Setting;
 import net.minecraft.launchwrapper.Launch;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +40,18 @@ public final class ModuleManager {
         for (Constructor<?> constructor : clazz.getConstructors()) {
             if (constructor.getParameterCount() == 0) {
                 final Module module = (Module) constructor.newInstance();
+                try {
+                    for (Field field : module.getClass().getDeclaredFields()) {
+                        if (!field.isAccessible())
+                            field.setAccessible(true);
+                        if (Setting.class.isAssignableFrom(field.getType())) {
+                            final Setting setting = (Setting) field.get(module);
+                            module.getSettings().add(setting);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 modules.add(module);
                 moduleMap.put(clazz, module);
             }

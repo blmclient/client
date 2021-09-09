@@ -21,7 +21,7 @@ public final class ModeSetting<T extends Enum<?>> extends Setting {
     }
 
     public void increment() {
-        if (value.ordinal() > value.getClass().getEnumConstants().length - 1) {
+        if (value.ordinal() + 1 > value.getClass().getEnumConstants().length - 1) {
             value = constants[0];
         } else {
             value = constants[value.ordinal() + 1];

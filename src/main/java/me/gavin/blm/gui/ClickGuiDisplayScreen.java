@@ -3,9 +3,11 @@ package me.gavin.blm.gui;
 import me.gavin.blm.gui.api.Component;
 import me.gavin.blm.gui.setting.BindComponent;
 import me.gavin.blm.gui.setting.BoolComponent;
+import me.gavin.blm.gui.setting.ModeComponent;
 import me.gavin.blm.misc.MC;
 import me.gavin.blm.module.Module;
 import me.gavin.blm.setting.BoolSetting;
+import me.gavin.blm.setting.ModeSetting;
 import me.gavin.blm.setting.Setting;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Mouse;
@@ -13,6 +15,7 @@ import org.lwjgl.input.Mouse;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Set;
 
 public final class ClickGuiDisplayScreen extends GuiScreen implements MC {
 
@@ -29,19 +32,12 @@ public final class ClickGuiDisplayScreen extends GuiScreen implements MC {
                 final int compWidth = button.width - 2;
                 final int compHeight = button.height;
                 button.getComponents().add(new BindComponent(module, 0, 0, compWidth, compHeight));
-                try {
-                    for (Field field : module.getClass().getDeclaredFields()) {
-                        if (!field.isAccessible())
-                            field.setAccessible(true);
-                        if (Setting.class.isAssignableFrom(field.getType())) {
-                            final Setting setting = (Setting) field.get(module);
-                            if (setting instanceof BoolSetting) {
-                                button.getComponents().add(new BoolComponent((BoolSetting) setting, 0, 0, compWidth, compHeight));
-                            }
-                        }
+                for (Setting setting : module.getSettings()) {
+                    if (setting instanceof BoolSetting) {
+                        button.getComponents().add(new BoolComponent((BoolSetting) setting, 0, 0, compWidth, compHeight));
+                    } else if (setting instanceof ModeSetting) {
+                        button.getComponents().add(new ModeComponent((ModeSetting<?>) setting, 0, 0, compWidth, compHeight));
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
                 frame.getComponents().add(button);
             }
