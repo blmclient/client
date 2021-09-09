@@ -1,15 +1,13 @@
 package me.gavin.blm;
 
 import me.gavin.blm.command.CommandManager;
+import me.gavin.blm.config.ConfigManager;
 import me.gavin.blm.gui.ClickGuiDisplayScreen;
 import me.gavin.blm.misc.EventProcessor;
 import me.gavin.blm.module.ModuleManager;
-import net.minecraft.block.BlockPortal;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-
-import java.lang.reflect.Method;
 
 @Mod(
         name = BLMClient.NAME,
@@ -27,6 +25,8 @@ public final class BLMClient
     @Mod.Instance(MODID)
     public static BLMClient INSTANCE;
 
+    private ConfigManager configManager;
+
     private ModuleManager moduleManager;
 
     private CommandManager commandManager;
@@ -35,10 +35,15 @@ public final class BLMClient
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        configManager = new ConfigManager();
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
         clickGui = new ClickGuiDisplayScreen();
         MinecraftForge.EVENT_BUS.register(new EventProcessor());
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
     }
 
     public ModuleManager getModuleManager() {

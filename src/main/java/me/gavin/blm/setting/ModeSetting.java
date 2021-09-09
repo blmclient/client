@@ -1,6 +1,6 @@
 package me.gavin.blm.setting;
 
-public final class ModeSetting<T extends Enum<?>> extends Setting {
+public final class ModeSetting<T extends Enum> extends Setting {
 
     private final T[] constants;
     private T value;

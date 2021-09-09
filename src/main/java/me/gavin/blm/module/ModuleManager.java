@@ -1,6 +1,7 @@
 package me.gavin.blm.module;
 
 import com.google.common.reflect.ClassPath;
+import me.gavin.blm.BLMClient;
 import me.gavin.blm.gui.setting.BoolComponent;
 import me.gavin.blm.gui.setting.ModeComponent;
 import me.gavin.blm.setting.BoolSetting;
@@ -54,6 +55,8 @@ public final class ModuleManager {
                 }
                 modules.add(module);
                 moduleMap.put(clazz, module);
+                // register module config to be saved & loaded
+                BLMClient.INSTANCE.getConfigManager().registerConfigurable(module);
             }
         }
     }

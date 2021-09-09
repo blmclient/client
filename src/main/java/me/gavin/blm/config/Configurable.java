@@ -6,7 +6,7 @@ public interface Configurable {
 
     String getName();
 
-    String getConfigCategory();
+    String getConfigGroup();
 
     void saveProperties(JsonObject jsonObject);
 

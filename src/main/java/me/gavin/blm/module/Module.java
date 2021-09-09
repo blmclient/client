@@ -1,13 +1,5 @@
 package me.gavin.blm.module;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import com.google.gson.JsonObject;
 import me.gavin.blm.config.Configurable;
 import me.gavin.blm.misc.MC;
@@ -17,7 +9,13 @@ import me.gavin.blm.setting.Setting;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 
-public class Module implements MC, Configurable {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.ArrayList;
+
+public abstract class Module implements MC, Configurable {
 	
 	private boolean enabled;
 	private int bind;
@@ -53,7 +51,7 @@ public class Module implements MC, Configurable {
 	}
 
 	@Override
-	public String getConfigCategory() {
+	public String getConfigGroup() {
 		return "modules";
 	}
 
@@ -70,9 +68,24 @@ public class Module implements MC, Configurable {
 		}
 	}
 
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
 	public void writeProperties(JsonObject jsonObject) {
-		
+		bind = jsonObject.get("module_bind").getAsInt();
+		setEnabled(jsonObject.get("module_enabled").getAsBoolean());
+		for (Setting setting : settings) {
+			if (jsonObject.get(setting.getName()) != null) {
+				if (setting instanceof BoolSetting) {
+					((BoolSetting)setting).setValue(jsonObject.get(setting.getName()).getAsBoolean());
+				} else if (setting instanceof ModeSetting) {
+					final ModeSetting modeSetting = (ModeSetting) setting;
+					final int index = jsonObject.get(setting.getName()).getAsInt();
+					if (index <= modeSetting.getValue().getClass().getEnumConstants().length - 1 && index >= 0) {
+						modeSetting.setValue(modeSetting.getValue().getClass().getEnumConstants()[index]);
+					}
+				}
+			}
+		}
 	}
 
 	public String getDescription() {
