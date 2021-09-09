@@ -5,9 +5,11 @@ import me.gavin.blm.config.ConfigManager;
 import me.gavin.blm.gui.ClickGuiDisplayScreen;
 import me.gavin.blm.misc.EventProcessor;
 import me.gavin.blm.module.ModuleManager;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 @Mod(
         name = BLMClient.NAME,
@@ -40,6 +42,12 @@ public final class BLMClient
         commandManager = new CommandManager();
         clickGui = new ClickGuiDisplayScreen();
         MinecraftForge.EVENT_BUS.register(new EventProcessor());
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> configManager.saveAll()));
+    }
+
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        configManager.loadAll();
     }
 
     public ConfigManager getConfigManager() {

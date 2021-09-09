@@ -25,9 +25,6 @@ minecraft {
     coreMod = "me.gavin.blm.BLMCoreMod"
 }
 
-repositories {
-}
-
 dependencies {
 }
 
