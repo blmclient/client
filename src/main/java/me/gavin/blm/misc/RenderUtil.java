@@ -61,6 +61,7 @@ public final class RenderUtil implements MC {
         GlStateManager.disableTexture2D();
         GlStateManager.glLineWidth(1f);
         GL11.glDisable(GL11.GL_LINE_SMOOTH);
+        GlStateManager.enableBlend();
         GlStateManager.color(r, g, b, a);
         buffer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
         buffer.pos(x1, y1, 0.0).endVertex();
@@ -69,5 +70,42 @@ public final class RenderUtil implements MC {
         buffer.pos(x1, y2, 0.0).endVertex();
         tessellator.draw();
         GlStateManager.enableTexture2D();
+        GlStateManager.disableDepth();
+    }
+
+    public static void drawRect(float x1, float y1, float x2, float y2, int color)
+    {
+        if (x1 < x2)
+        {
+            float i = x1;
+            x1 = x2;
+            x2 = i;
+        }
+
+        if (y1 < y2)
+        {
+            float j = y1;
+            y1 = y2;
+            y2 = j;
+        }
+
+        float f3 = (float)(color >> 24 & 255) / 255.0F;
+        float f = (float)(color >> 16 & 255) / 255.0F;
+        float f1 = (float)(color >> 8 & 255) / 255.0F;
+        float f2 = (float)(color & 255) / 255.0F;
+        Tessellator tessellator = Tessellator.getInstance();
+        VertexBuffer vertexbuffer = tessellator.getBuffer();
+        GlStateManager.enableBlend();
+        GlStateManager.disableTexture2D();
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(f, f1, f2, f3);
+        vertexbuffer.begin(7, DefaultVertexFormats.POSITION);
+        vertexbuffer.pos(x1, y2, 0.0f).endVertex();
+        vertexbuffer.pos(x2, y2, 0.0f).endVertex();
+        vertexbuffer.pos(x2, y1, 0.0f).endVertex();
+        vertexbuffer.pos(x1, y1, 0.0f).endVertex();
+        tessellator.draw();
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
     }
 }

@@ -21,8 +21,8 @@ public final class ClickGuiDisplayScreen extends GuiScreen implements MC {
         for (Module.Category category : Module.Category.values()) {
             final Frame frame = new Frame(category.name(), xoffset, 4, 120, 16, 1, 1);
             for (Module module : blm.getModuleManager().getCategoryMods(category)) {
-                final Button button = new Button(module, 0, 0, frame.width - 2, 12, 1, 1);
-                button.getComponents().add(new BindComponent(module, 0, 0, button.width - 2, 12));
+                final Button button = new Button(module, 0, 0, frame.width - 2, 12, 2, 1);
+                button.getComponents().add(new BindComponent(module, 0, 0, button.width - 4, 12));
 
                 frame.getComponents().add(button);
             }

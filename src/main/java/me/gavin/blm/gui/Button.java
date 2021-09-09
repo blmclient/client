@@ -69,7 +69,15 @@ public final class Button extends Component {
         mc.fontRendererObj.drawStringWithShadow(clr + s, x + width - mc.fontRendererObj.getStringWidth(s) - 2f, y + (height / 2f) - (mc.fontRendererObj.FONT_HEIGHT / 2f) + 0.5f, -1);
         if (open) {
             if (module.isEnabled()) {
-                RenderUtil.outline2d(x + .5f, y + height, x + width - .5f, y + height + getSettingsHeight() - .5f, 0xc8ff0000);
+                final int settingHeight = getSettingsHeight();
+                // left
+                Gui.drawRect(x, y + height, x + 1, y + height + settingHeight, 0xc8ff0000);
+                // top
+                Gui.drawRect(x + 1, y + height, x + width - 1, y + height + ypadding - 1, 0xc8ff0000);
+                // bottom
+                Gui.drawRect(x + 1, y + height + settingHeight - 1, x + width - 1, y + height + settingHeight, 0xc8ff0000);
+                // right
+                Gui.drawRect(x + width - 1, y + height, x + width, y + height + settingHeight, 0xc8ff0000);
             }
             int yoffset = y + height + ypadding;
             for (Component component : components) {
@@ -107,6 +115,6 @@ public final class Button extends Component {
             height += component.height + ypadding;
         }
 
-        return height;
+        return height + 1;
     }
 }

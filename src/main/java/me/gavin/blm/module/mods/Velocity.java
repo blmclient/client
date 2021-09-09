@@ -1,5 +1,6 @@
 package me.gavin.blm.module.mods;
 
+import me.gavin.blm.events.EntityPushedEvent;
 import me.gavin.blm.events.PacketEvent;
 import me.gavin.blm.events.PlayerPushedByWaterEvent;
 import me.gavin.blm.module.Module;
@@ -28,6 +29,12 @@ public final class Velocity extends Module {
         if (event.getEntityId() == mc.thePlayer.entityId) {
             event.setCanceled(true);
         }
+    }
+
+    @SubscribeEvent
+    public void onPush(EntityPushedEvent event) {
+        if (event.getEntity() == mc.thePlayer)
+            event.setCanceled(true);
     }
 
     @SubscribeEvent
