@@ -4,10 +4,12 @@ import me.gavin.blm.gui.api.Component;
 import me.gavin.blm.gui.setting.BindComponent;
 import me.gavin.blm.gui.setting.BoolComponent;
 import me.gavin.blm.gui.setting.ModeComponent;
+import me.gavin.blm.gui.setting.SliderComponent;
 import me.gavin.blm.misc.MC;
 import me.gavin.blm.module.Module;
 import me.gavin.blm.setting.BoolSetting;
 import me.gavin.blm.setting.ModeSetting;
+import me.gavin.blm.setting.NumberSetting;
 import me.gavin.blm.setting.Setting;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Mouse;
@@ -37,6 +39,8 @@ public final class ClickGuiDisplayScreen extends GuiScreen implements MC {
                         button.getComponents().add(new BoolComponent((BoolSetting) setting, 0, 0, compWidth, compHeight));
                     } else if (setting instanceof ModeSetting) {
                         button.getComponents().add(new ModeComponent((ModeSetting<?>) setting, 0, 0, compWidth, compHeight));
+                    } else if (setting instanceof NumberSetting) {
+                        button.getComponents().add(new SliderComponent((NumberSetting) setting, 0, 0, compWidth, compHeight));
                     }
                 }
                 frame.getComponents().add(button);

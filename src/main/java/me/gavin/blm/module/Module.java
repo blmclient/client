@@ -5,6 +5,7 @@ import me.gavin.blm.config.Configurable;
 import me.gavin.blm.misc.MC;
 import me.gavin.blm.setting.BoolSetting;
 import me.gavin.blm.setting.ModeSetting;
+import me.gavin.blm.setting.NumberSetting;
 import me.gavin.blm.setting.Setting;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
@@ -64,6 +65,8 @@ public abstract class Module implements MC, Configurable {
 				jsonObject.addProperty(setting.getName(), ((BoolSetting)setting).getValue());
 			} else if (setting instanceof ModeSetting) {
 				jsonObject.addProperty(setting.getName(), ((ModeSetting<?>)setting).getValue().ordinal());
+			} else if (setting instanceof NumberSetting) {
+				jsonObject.addProperty(setting.getName(), ((NumberSetting)setting).getValue());
 			}
 		}
 	}
@@ -83,6 +86,8 @@ public abstract class Module implements MC, Configurable {
 					if (index <= modeSetting.getValue().getClass().getEnumConstants().length - 1 && index >= 0) {
 						modeSetting.setValue(modeSetting.getValue().getClass().getEnumConstants()[index]);
 					}
+				} else if (setting instanceof NumberSetting) {
+					((NumberSetting)setting).setValue(jsonObject.get(setting.getName()).getAsFloat());
 				}
 			}
 		}

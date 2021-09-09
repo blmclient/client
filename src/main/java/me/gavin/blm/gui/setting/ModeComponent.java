@@ -35,7 +35,7 @@ public final class ModeComponent extends Component {
 
     @Override
     public void draw(int mouseX, int mouseY, float partialTicks) {
-        mc.fontRendererObj.drawStringWithShadow(ChatFormatting.GRAY + setting.getName() + ": " + ChatFormatting.WHITE + setting.getValue().toString(), x + 2f, 0.5f + y + (height / 2f) - (mc.fontRendererObj.FONT_HEIGHT / 2f),-1);
+        mc.fontRendererObj.drawStringWithShadow(ChatFormatting.WHITE + setting.getName() + ": " + ChatFormatting.GRAY + setting.getValue().toString(), x + 2f, 0.5f + y + (height / 2f) - (mc.fontRendererObj.FONT_HEIGHT / 2f),-1);
     }
 
     @Override
