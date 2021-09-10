@@ -57,4 +57,18 @@ public final class EntityRendererPatch extends ClassPatch {
         // insert at head of method
         methodNode.instructions.insert(insnList);
     }
+
+    @MethodPatch(
+            name = "setupFog",
+            desc = "(IF)V",
+            obfName = "a",
+            obfDesc = "(IF)V"
+    )
+    public void setupFogPatch(MethodNode methodNode, boolean deobfuscated) {
+        final InsnList insnList = new InsnList();
+        insnList.add(new VarInsnNode(FLOAD, 2)); // partialTicks
+        insnList.add(new MethodInsnNode(INVOKESTATIC, ASMHooks.internalName, "setupFogHook", "(F)V", false)); // hook function
+        // insert at bottom
+        methodNode.instructions.insertBefore(ASMUtil.findBottom(methodNode), insnList);
+    }
 }

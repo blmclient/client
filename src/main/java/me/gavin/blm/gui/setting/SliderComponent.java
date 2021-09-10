@@ -45,7 +45,7 @@ public final class SliderComponent extends Component {
         final VertexBuffer buffer = tessellator.getBuffer();
         GlStateManager.disableTexture2D();
         GlStateManager.color(0, 0, 0, 1);
-        GL11.glLineWidth(2.5f);
+        GL11.glLineWidth(3f);
         buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
         buffer.pos(x, y + height, 0.0).endVertex();
         buffer.pos(x + sliderWidth, y + height, 0.0).endVertex();

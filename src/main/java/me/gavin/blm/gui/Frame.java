@@ -72,8 +72,8 @@ public final class Frame extends DragComponent {
                 yheight += (component.open ? component.getSettingsHeight() : 0) + component.height + component.ypadding;
             }
 
-            Gui.drawRect(x, y + height, x + width, yheight, 0x90000000);
-            RenderUtil.outline2d(x, y + height, x + width, yheight, 0xff000000);
+            RenderUtil.drawRect(x - 0.35f, y + height, x + width, yheight + 0.5f, 0x90000000);
+            //RenderUtil.outline2d(x, y + height, x + width, yheight, 0xff000000);
 
             int yoffset = y + height + ypadding;
             for (Button component : components) {

@@ -79,9 +79,9 @@ public final class ASMHooks {
             float netHeadYaw,
             float headPitch,
             float scaleFactor) {
-//        GL11.glDepthRange(0.0, 0.01);
-        modelBase.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
-//        GL11.glDepthRange(0.0, 1.0);
+        if (!MinecraftForge.EVENT_BUS.post(new RenderEntityModelEvent(modelBase, entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor))) {
+            modelBase.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+        }
     }
 
     public static boolean isPushedByWaterHook(int entityId) {
@@ -94,5 +94,9 @@ public final class ASMHooks {
 
     public static boolean isCollidableHook(Block block) {
         return MinecraftForge.EVENT_BUS.post(new BlockCollisionEvent(block));
+    }
+
+    public static void setupFogHook(float partialTicks) {
+        MinecraftForge.EVENT_BUS.post(new SetupFogPostEvent(partialTicks));
     }
 }

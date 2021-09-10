@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
         description = "Break crystals automatically",
         category = Module.Category.Combat
 )
-public class CrystalAura extends Module {
+public final class CrystalAura extends Module {
 
     private final NumberSetting range = new NumberSetting("Range", 4f, 1f, 5f);
     private final NumberSetting wallsRange = new NumberSetting("WallsRange", 3f, 1f, 5f);

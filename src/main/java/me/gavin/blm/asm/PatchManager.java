@@ -22,6 +22,7 @@ public final class PatchManager {
         patches.add(new EntityPlayerPatch());
         patches.add(new EntityPatch());
         patches.add(new BlockPatch());
+        patches.add(new KeyBindingPatch());
     }
 
     public ClassPatch getPatch(String className) {

@@ -64,4 +64,8 @@ public final class ASMUtil {
 
         return list.get(ordinal);
     }
+
+    public static AbstractInsnNode findBottom(MethodNode method) {
+        return method.instructions.get(method.instructions.size() - 2);
+    }
 }
