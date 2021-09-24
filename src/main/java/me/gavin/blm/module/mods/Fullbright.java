@@ -9,5 +9,5 @@ import me.gavin.blm.module.Module;
 )
 public final class Fullbright extends Module {
 
-    // See MixinEntityRenderer.updateLightmapHook
+    // see ASMHooks.updateLightmapHook
 }
