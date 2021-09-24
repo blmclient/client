@@ -9,6 +9,10 @@ import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+
+// chinese crystal aura idc
+
+// fix ur server scott
 @Module.Info(
         name = "CrystalAura",
         description = "Break crystals automatically",
@@ -30,7 +34,7 @@ public final class CrystalAura extends Module {
                     range = this.wallsRange.getValue();
                 }
 
-                // ensure we only break once per tick (so the anticheat doesnt get mad)
+                // ensure we only break once per tick (because anticheat)
                 if (mc.thePlayer.getDistanceToEntity(entity) <= range) {
                     mc.thePlayer.connection.sendPacket(new CPacketUseEntity(entity));
                     mc.thePlayer.swingArm(EnumHand.MAIN_HAND);
